@@ -1,0 +1,63 @@
+.filebar {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-3) var(--space-4) var(--space-2);
+  font-size: var(--text-meta);
+}
+
+.filebar__name {
+  font-weight: 550;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.filebar__size {
+  color: var(--text-tertiary);
+  font-variant-numeric: tabular-nums;
+}
+
+.filebar__replace {
+  margin-left: auto;
+}
+
+.stage {
+  position: relative;
+  flex: 1 1 auto;
+  min-height: 180px;
+  margin: 0 var(--space-4);
+}
+
+.status {
+  margin: var(--space-2) var(--space-4) 0;
+  font-size: var(--text-meta);
+  color: var(--text-tertiary);
+}
+
+.notice {
+  margin: 0 var(--space-4) var(--space-3);
+  font-size: var(--text-meta);
+  color: var(--text-tertiary);
+}
+
+.notice--error {
+  color: var(--danger);
+  text-align: center;
+  margin-bottom: var(--space-6);
+}
+
+.footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex: 0 0 auto;
+  padding: var(--space-2) var(--space-4);
+  border-top: 1px solid var(--border-subtle);
+  font-size: var(--text-label);
+  color: var(--text-tertiary);
+}
+
+.footer__engine {
+  font-variant-numeric: tabular-nums;
+}

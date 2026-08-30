@@ -1,0 +1,81 @@
+.estimates {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-2);
+}
+
+.estimate {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  padding: var(--space-3);
+  text-align: left;
+  border-radius: var(--radius-md);
+  background: var(--surface-1);
+  border: 1px solid var(--border-subtle);
+  transition:
+    background var(--duration-fast) var(--ease-out),
+    border-color var(--duration-fast) var(--ease-out);
+}
+
+.estimate:hover {
+  background: var(--surface-2);
+}
+
+/* Standard is nudged forward with a border, not with colour. */
+.estimate.is-recommended {
+  border-color: var(--border-strong);
+}
+
+.estimate.is-selected {
+  background: var(--surface-2);
+  border-color: oklch(74% 0.11 195 / 0.45);
+}
+
+.estimate__head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-2);
+}
+
+.estimate__layer {
+  font-size: var(--text-label);
+  color: var(--text-tertiary);
+  font-variant-numeric: tabular-nums;
+}
+
+.estimate__time {
+  font-size: var(--text-time);
+  font-weight: 620;
+  letter-spacing: -0.02em;
+  font-variant-numeric: tabular-nums;
+  line-height: 1.1;
+}
+
+/* The recommended preset carries the number the whole app exists to show. */
+.estimate.is-recommended .estimate__time {
+  font-size: var(--text-time-hero);
+}
+
+.estimate__approx-mark {
+  color: var(--text-tertiary);
+}
+
+.estimate__pending {
+  font-size: var(--text-body);
+  font-weight: 400;
+  color: var(--text-tertiary);
+}
+
+.estimate__foot {
+  display: flex;
+  gap: var(--space-2);
+  min-height: 14px;
+  font-size: var(--text-label);
+  color: var(--text-tertiary);
+}
+
+.estimate__approx {
+  color: var(--text-tertiary);
+}

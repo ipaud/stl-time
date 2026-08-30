@@ -1,0 +1,65 @@
+{
+  "name": "stl-time",
+  "version": "0.1.0",
+  "description": "Print time estimator for the FlashForge Adventurer 5M Pro",
+  "main": "./out/main/index.js",
+  "author": "Pau Avila",
+  "license": "MIT",
+  "private": true,
+  "homepage": "https://github.com/ipaud/stl-time#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ipaud/stl-time.git"
+  },
+  "bugs": {
+    "url": "https://github.com/ipaud/stl-time/issues"
+  },
+  "keywords": [
+    "3d-printing",
+    "stl",
+    "slicer",
+    "orcaslicer",
+    "flashforge",
+    "adventurer-5m-pro",
+    "print-time",
+    "electron",
+    "macos"
+  ],
+  "engines": {
+    "node": ">=20"
+  },
+  "packageManager": "pnpm@9.15.9",
+  "scripts": {
+    "dev": "electron-vite dev",
+    "start": "electron-vite preview",
+    "build": "npm run typecheck && npm run test && electron-vite build",
+    "dist": "npm run build && electron-builder --mac --arm64",
+    "typecheck": "tsc --noEmit -p tsconfig.node.json && tsc --noEmit -p tsconfig.web.json",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "lint": "eslint .",
+    "format": "prettier --write \"src/**/*.{ts,tsx,css}\" \"*.{ts,mjs,yml,json}\" \"*.md\" \".github/**/*.yml\"",
+    "format:check": "prettier --check \"src/**/*.{ts,tsx,css}\" \"*.{ts,mjs,yml,json}\" \"*.md\" \".github/**/*.yml\""
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.18.0",
+    "@types/node": "^22.10.5",
+    "@types/react": "^18.3.18",
+    "@types/react-dom": "^18.3.5",
+    "@types/three": "^0.172.0",
+    "@vitejs/plugin-react": "^4.3.4",
+    "electron": "^33.3.1",
+    "electron-builder": "^25.1.8",
+    "electron-vite": "^2.3.0",
+    "eslint": "^9.18.0",
+    "lucide-react": "^0.471.0",
+    "prettier": "^3.4.2",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "three": "^0.172.0",
+    "typescript": "^5.7.3",
+    "typescript-eslint": "^8.20.0",
+    "vite": "^5.4.11",
+    "vitest": "^2.1.8"
+  }
+}

@@ -1,0 +1,34 @@
+appId: com.pauavila.stltime
+productName: STL Time
+copyright: Copyright © 2026 Pau Avila
+
+directories:
+  buildResources: build
+  output: dist
+
+files:
+  - out/**
+  - package.json
+
+mac:
+  category: public.app-category.utilities
+  icon: build/icon.icns
+  target:
+    - target: dmg
+      arch: [arm64]
+  # Unsigned local build: adjust once a Developer ID certificate is available.
+  identity: null
+  extendInfo:
+    NSHumanReadableCopyright: Copyright © 2026 Pau Avila
+    LSApplicationCategoryType: public.app-category.utilities
+
+dmg:
+  title: STL Time
+  contents:
+    - x: 140
+      y: 180
+      type: file
+    - x: 400
+      y: 180
+      type: link
+      path: /Applications

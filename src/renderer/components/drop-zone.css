@@ -1,0 +1,56 @@
+.dropzone {
+  flex: 1 1 auto;
+  display: grid;
+  place-items: center;
+  padding: var(--space-6);
+}
+
+.dropzone__target {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-3);
+  width: min(340px, 100%);
+  padding: var(--space-6) var(--space-5);
+  border: 1px dashed var(--border-strong);
+  border-radius: var(--radius-lg);
+  background: var(--surface-1);
+  transition:
+    border-color var(--duration-normal) var(--ease-out),
+    background var(--duration-normal) var(--ease-out),
+    transform var(--duration-normal) var(--ease-out);
+}
+
+.dropzone__target.is-over {
+  border-color: var(--accent);
+  background: var(--surface-2);
+  transform: scale(1.015);
+}
+
+.dropzone__title {
+  font-size: 0.9375rem;
+  font-weight: 590;
+  letter-spacing: -0.01em;
+}
+
+.dropzone__browse {
+  color: var(--text-tertiary);
+}
+
+/*
+ * Purely visual hint shown over a loaded model while a file is being dragged.
+ * pointer-events: none keeps the canvas orbitable; the drop itself is caught on
+ * the window by useFileDrop.
+ */
+.drop-hint {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--accent);
+  background: oklch(74% 0.11 195 / 0.08);
+  display: grid;
+  place-items: center;
+  font-size: var(--text-meta);
+  color: var(--text-primary);
+}

@@ -1,0 +1,39 @@
+name: Release
+
+on:
+  push:
+    tags: ['v*']
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  dmg:
+    runs-on: macos-14
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: pnpm
+
+      - run: pnpm install --frozen-lockfile
+
+      - name: Build and package
+        run: pnpm dist
+        env:
+          # The build is unsigned; skip electron-builder's notarization step.
+          CSC_IDENTITY_AUTO_DISCOVERY: 'false'
+
+      - name: Attach the dmg to the release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: dist/*.dmg
+          draft: true
+          body: |
+            Unsigned build. On first launch macOS will refuse to open it:
+            right-click the app and choose **Open**, then confirm.

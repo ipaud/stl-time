@@ -1,0 +1,20 @@
+# dependencies
+node_modules
+
+# build output
+out
+dist
+
+# icon intermediates (icon.png and icon.icns are committed)
+build/icon.iconset
+
+# tooling caches
+*.tsbuildinfo
+.eslintcache
+
+# macOS
+.DS_Store
+
+# local env
+.env
+.env.*

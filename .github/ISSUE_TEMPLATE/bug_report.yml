@@ -1,0 +1,53 @@
+name: Bug report
+description: Something in STL Time behaves wrongly.
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Before filing: if the times look wrong, please check whether the app is
+        showing them with a `≈` and an **Approximate** label. That means no
+        slicer was found and you are seeing the fallback model, which is only
+        accurate to about ±35%.
+
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened
+      description: What you did, what you expected, and what you got instead.
+    validations:
+      required: true
+
+  - type: input
+    id: model
+    attributes:
+      label: The model
+      description: Its dimensions and triangle count, as the app reports them. Attach the STL if you can share it.
+      placeholder: 82 × 54 × 126 mm, 40k triangles
+
+  - type: input
+    id: slicer
+    attributes:
+      label: Slicer
+      description: The engine name shown in the bottom right of the window.
+      placeholder: Flash Studio Orca-Flashforge 2.3.2
+    validations:
+      required: true
+
+  - type: input
+    id: os
+    attributes:
+      label: macOS version and chip
+      placeholder: macOS 15.2, M2
+    validations:
+      required: true
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: Terminal output
+      description: |
+        Run `env -u ELECTRON_RUN_AS_NODE pnpm dev` and paste the `[slicer]`,
+        `[orca]` and `[job]` lines. They contain paths and timings only, never
+        your model.
+      render: text
