@@ -37,5 +37,9 @@ jobs:
           files: dist/*.dmg
           draft: true
           body: |
-            Unsigned build. On first launch macOS will refuse to open it:
-            right-click the app and choose **Open**, then confirm.
+            See the [changelog](https://github.com/ipaud/stl-time/blob/main/CHANGELOG.md)
+            for what is in this release.
+
+            **Apple Silicon only.** The build is unsigned, so macOS will refuse
+            to open it the first time: right-click the app and choose **Open**,
+            then confirm.

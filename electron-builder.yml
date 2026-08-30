@@ -10,6 +10,9 @@ files:
   - out/**
   - package.json
 
+# GitHub rewrites spaces in asset names, so keep the artifact name space-free.
+artifactName: ${name}-${version}-${arch}.${ext}
+
 mac:
   category: public.app-category.utilities
   icon: build/icon.icns
