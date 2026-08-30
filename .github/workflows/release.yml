@@ -23,10 +23,12 @@ jobs:
 
       - run: pnpm install --frozen-lockfile
 
+      # `pnpm dist` passes --publish never: packaging and releasing are separate
+      # steps, and the release itself is created below as a draft.
       - name: Build and package
         run: pnpm dist
         env:
-          # The build is unsigned; skip electron-builder's notarization step.
+          # The build is unsigned; skip electron-builder's signing discovery.
           CSC_IDENTITY_AUTO_DISCOVERY: 'false'
 
       - name: Attach the dmg to the release
