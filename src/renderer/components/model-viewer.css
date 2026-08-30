@@ -9,6 +9,16 @@
   border: 1px solid var(--border-subtle);
 }
 
+/* A soft vignette so the model sits in the frame rather than floating in a box. */
+.viewer::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  border-radius: inherit;
+  background: radial-gradient(120% 90% at 50% 40%, transparent 45%, rgb(0 0 0 / 0.42));
+}
+
 .viewer canvas {
   display: block;
   width: 100%;

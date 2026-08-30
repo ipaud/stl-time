@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
+import { X } from 'lucide-react'
 import type { AppSettings } from '@shared/types.js'
 import './settings.css'
 
@@ -39,7 +40,12 @@ export function Settings({ settings, onSave, onClose }: Props): JSX.Element {
         aria-label="Settings"
         onMouseDown={(event) => event.stopPropagation()}
       >
-        <h2 className="settings__title">Settings</h2>
+        <div className="settings__head">
+          <h2 className="settings__title">Settings</h2>
+          <button type="button" className="icon-button" aria-label="Close" onClick={onClose}>
+            <X size={14} strokeWidth={2} />
+          </button>
+        </div>
 
         <label className="settings__field">
           <span className="settings__label">PLA price per kg</span>
@@ -60,11 +66,13 @@ export function Settings({ settings, onSave, onClose }: Props): JSX.Element {
           </span>
         </label>
 
+        <p className="settings__note">Used only to work out what a print costs.</p>
+
         <div className="settings__actions">
           <button type="button" className="text-button" onClick={onClose}>
             Cancel
           </button>
-          <button type="button" className="text-button settings__save" onClick={commit}>
+          <button type="button" className="settings__save" onClick={commit}>
             Save
           </button>
         </div>

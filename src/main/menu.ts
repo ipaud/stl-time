@@ -1,19 +1,14 @@
-import { Menu, app, type BrowserWindow } from 'electron'
-import { IPC, type MenuEvent } from '@shared/ipc.js'
+import { Menu, app } from 'electron'
+import type { Actions } from './actions.js'
 
-export function buildMenu(getWindow: () => BrowserWindow | null): void {
-  const send = (event: MenuEvent) => () => {
-    const window = getWindow()
-    if (window && !window.webContents.isDestroyed()) window.webContents.send(IPC.MENU_EVENT, event)
-  }
-
+export function buildMenu(actions: Actions): void {
   const menu = Menu.buildFromTemplate([
     {
       label: app.name,
       submenu: [
         { role: 'about' },
         { type: 'separator' },
-        { label: 'Settings…', accelerator: 'CmdOrCtrl+,', click: send('open-settings') },
+        { label: 'Settings…', accelerator: 'CmdOrCtrl+,', click: actions.openSettings },
         { type: 'separator' },
         { role: 'hide' },
         { role: 'hideOthers' },
@@ -24,7 +19,7 @@ export function buildMenu(getWindow: () => BrowserWindow | null): void {
     {
       label: 'File',
       submenu: [
-        { label: 'Open STL…', accelerator: 'CmdOrCtrl+O', click: send('open-file') },
+        { label: 'Open STL…', accelerator: 'CmdOrCtrl+O', click: actions.openFile },
         { type: 'separator' },
         { role: 'close' },
       ],

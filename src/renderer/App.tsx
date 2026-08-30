@@ -1,8 +1,9 @@
 import { useCallback, useEffect, useMemo, useReducer, useRef, useState } from 'react'
-import { Settings as SettingsIcon } from 'lucide-react'
+import { Box, CircleAlert, FolderOpen, LoaderCircle, Settings as SettingsIcon } from 'lucide-react'
 import { ADVENTURER_5M_PRO } from '@shared/printers/adventurer5mpro.js'
 import { DEFAULT_SETTINGS, type AppSettings, type SlicerInfo } from '@shared/types.js'
 import { formatFileSize } from '@shared/utils/cost.js'
+import markUrl from './assets/mark.svg'
 import { DropZone } from './components/DropZone.js'
 import { ModelViewer } from './components/ModelViewer.js'
 import { ResultsPanel } from './components/ResultsPanel.js'
@@ -82,16 +83,26 @@ export function App(): JSX.Element {
     [open],
   )
 
+  /** Reads a path the main process gave us, then runs the normal load. */
+  const openPath = useCallback(
+    async (path: string) => {
+      try {
+        const { name, sizeBytes, bytes } = await window.stlTime.readFile(path)
+        await open(path, name, sizeBytes, bytes)
+      } catch {
+        dispatch({ type: 'error', message: "Couldn't read that file." })
+      }
+    },
+    [open],
+  )
+
   const browse = useCallback(async () => {
-    try {
-      const picked = await window.stlTime.pickFile()
-      if (!picked) return
-      const { bytes } = await window.stlTime.readFile(picked.path)
-      await open(picked.path, picked.name, picked.sizeBytes, bytes)
-    } catch {
-      dispatch({ type: 'error', message: "Couldn't read that file." })
-    }
-  }, [open])
+    const picked = await window.stlTime.pickFile().catch(() => null)
+    if (!picked) return
+    await openPath(picked.path)
+  }, [openPath])
+
+  useEffect(() => window.stlTime.onOpenPath((path) => void openPath(path)), [openPath])
 
   const isOver = useFileDrop((files) => void openFiles(files))
 
@@ -110,11 +121,13 @@ export function App(): JSX.Element {
 
   const detail = useMemo(() => detailEstimate(state), [state])
   const showApproxNotice = !slicer.available && anyApproximate(state)
+  const isBusy = state.status === 'loading' || state.status === 'analyzing'
 
   return (
     <div className="app">
       <header className="titlebar">
-        <div>
+        <div className="titlebar__brand">
+          <img className="titlebar__mark" src={markUrl} alt="" width={15} height={17} />
           <span className="titlebar__title">STL Time</span>
           <span className="titlebar__printer">{ADVENTURER_5M_PRO.name}</span>
         </div>
@@ -132,6 +145,7 @@ export function App(): JSX.Element {
         {state.analysis ? (
           <>
             <div className="filebar">
+              <Box className="filebar__icon" size={14} strokeWidth={1.9} />
               <span className="filebar__name" title={state.analysis.filename}>
                 {state.analysis.filename}
               </span>
@@ -141,6 +155,7 @@ export function App(): JSX.Element {
                 className="text-button filebar__replace"
                 onClick={() => void browse()}
               >
+                <FolderOpen size={13} strokeWidth={1.9} />
                 Replace
               </button>
             </div>
@@ -150,7 +165,12 @@ export function App(): JSX.Element {
               {isOver && <div className="drop-hint">Drop another STL</div>}
             </div>
 
-            {state.statusMessage && <p className="status">{state.statusMessage}</p>}
+            {(state.statusMessage || isBusy) && (
+              <p className="status">
+                <LoaderCircle className="spin" size={12} strokeWidth={2.2} />
+                {state.statusMessage || 'Working…'}
+              </p>
+            )}
 
             <ResultsPanel
               state={state}
@@ -162,17 +182,26 @@ export function App(): JSX.Element {
 
             {showApproxNotice && (
               <p className="notice">
-                Using approximate estimate. Install OrcaSlicer for more accurate results.
+                <CircleAlert size={13} strokeWidth={1.9} />
+                Approximate estimate. Install OrcaSlicer for accurate times.
               </p>
             )}
             {detail?.notice && (
-              <p className="notice">{detail.notice} Showing an approximate estimate instead.</p>
+              <p className="notice">
+                <CircleAlert size={13} strokeWidth={1.9} />
+                {detail.notice} Showing an approximate estimate instead.
+              </p>
             )}
           </>
         ) : (
           <>
             <DropZone onBrowse={() => void browse()} isOver={isOver} />
-            {state.errorMessage && <p className="notice notice--error">{state.errorMessage}</p>}
+            {state.errorMessage && (
+              <p className="notice notice--error">
+                <CircleAlert size={13} strokeWidth={1.9} />
+                {state.errorMessage}
+              </p>
+            )}
           </>
         )}
       </main>
@@ -181,7 +210,8 @@ export function App(): JSX.Element {
         <span>
           {ADVENTURER_5M_PRO.manufacturer} {ADVENTURER_5M_PRO.name}
         </span>
-        <span className="footer__engine">
+        <span className={`footer__engine${slicer.available ? '' : ' is-fallback'}`}>
+          <span className="footer__dot" aria-hidden="true" />
           {slicer.available ? `${slicer.name} ${slicer.version}` : 'Approximate estimates'}
         </span>
       </footer>

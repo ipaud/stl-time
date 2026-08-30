@@ -8,6 +8,8 @@ directories:
 
 files:
   - out/**
+  # The tray template images are referenced from out/main as ../../resources.
+  - resources/**
   - package.json
 
 # GitHub rewrites spaces in asset names, so keep the artifact name space-free.
@@ -24,6 +26,12 @@ mac:
   extendInfo:
     NSHumanReadableCopyright: Copyright © 2026 Pau Avila
     LSApplicationCategoryType: public.app-category.utilities
+
+fileAssociations:
+  - ext: stl
+    name: STL model
+    role: Viewer
+    rank: Alternate
 
 dmg:
   title: STL Time

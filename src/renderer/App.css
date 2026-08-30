@@ -6,8 +6,13 @@
   font-size: var(--text-meta);
 }
 
+.filebar__icon {
+  color: var(--accent-bright);
+  flex: 0 0 auto;
+}
+
 .filebar__name {
-  font-weight: 550;
+  font-weight: 560;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -30,21 +35,31 @@
 }
 
 .status {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
   margin: var(--space-2) var(--space-4) 0;
   font-size: var(--text-meta);
   color: var(--text-tertiary);
 }
 
 .notice {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
   margin: 0 var(--space-4) var(--space-3);
+  padding: var(--space-2) var(--space-3);
+  border-radius: var(--radius-sm);
+  background: var(--warning-tint);
+  color: var(--warning);
   font-size: var(--text-meta);
-  color: var(--text-tertiary);
 }
 
 .notice--error {
-  color: var(--danger);
-  text-align: center;
+  justify-content: center;
   margin-bottom: var(--space-6);
+  background: var(--danger-tint);
+  color: var(--danger);
 }
 
 .footer {
@@ -59,5 +74,22 @@
 }
 
 .footer__engine {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
   font-variant-numeric: tabular-nums;
+}
+
+/* Green when a real slicer is driving the numbers, amber when they are guessed. */
+.footer__dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--success);
+  box-shadow: 0 0 0 3px var(--success-tint);
+}
+
+.footer__engine.is-fallback .footer__dot {
+  background: var(--warning);
+  box-shadow: 0 0 0 3px var(--warning-tint);
 }

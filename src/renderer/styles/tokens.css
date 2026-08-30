@@ -1,27 +1,44 @@
 :root {
   color-scheme: dark;
 
-  /* Surfaces: near-black ground, cards one step up, nothing brighter. */
-  --surface-0: oklch(16.5% 0.004 265);
-  --surface-1: oklch(20% 0.005 265);
-  --surface-2: oklch(23.5% 0.006 265);
-  --surface-raised: oklch(26% 0.007 265);
+  /* Surfaces: near-black ground, each step a little lifted. */
+  --surface-0: #131316;
+  --surface-1: #1a1a1f;
+  --surface-2: #212127;
+  --surface-3: #2a2a32;
 
-  --border-subtle: oklch(100% 0 0 / 0.07);
-  --border-strong: oklch(100% 0 0 / 0.13);
+  --border-subtle: rgb(255 255 255 / 0.07);
+  --border-strong: rgb(255 255 255 / 0.13);
 
-  --text-primary: oklch(96% 0.003 265);
-  --text-secondary: oklch(72% 0.006 265);
-  --text-tertiary: oklch(56% 0.008 265);
+  --text-primary: #f2f3f5;
+  --text-secondary: #a7abb5;
+  --text-tertiary: #71757f;
 
-  --accent: oklch(74% 0.11 195);
-  --danger: oklch(66% 0.16 25);
+  /* Brand. The pure blue is a fill colour; on this ground it is too dark for
+     text, so anything readable uses the lifted tint instead. */
+  --accent: #0061fe;
+  --accent-bright: #5b9bff;
+  --accent-tint: rgb(0 97 254 / 0.16);
+  --accent-edge: rgb(91 155 255 / 0.42);
+  --accent-glow: rgb(0 97 254 / 0.22);
+
+  /* Semantic, used only to mean something: fits, does not fit, is a guess. */
+  --success: #3ddc84;
+  --success-tint: rgb(61 220 132 / 0.12);
+  --danger: #ff6b5e;
+  --danger-tint: rgb(255 107 94 / 0.12);
+  --warning: #f5b24a;
+  --warning-tint: rgb(245 178 74 / 0.12);
+
+  /* One hue per preset: warm for speed, brand for the balanced default, cool
+     for detail. Applied to the preset's icon only, so it informs without
+     colouring the whole card. */
+  --preset-fast: #f5b24a;
+  --preset-standard: #5b9bff;
+  --preset-quality: #b98cff;
 
   --font-sans:
     -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Helvetica Neue', system-ui, sans-serif;
-
-  /* Numbers line up in columns, so the digits must be tabular. */
-  --font-numeric: var(--font-sans);
 
   --text-label: 0.6875rem;
   --text-meta: 0.75rem;
@@ -39,6 +56,7 @@
   --radius-sm: 6px;
   --radius-md: 10px;
   --radius-lg: 14px;
+  --radius-pill: 999px;
 
   --duration-fast: 120ms;
   --duration-normal: 220ms;

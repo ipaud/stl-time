@@ -17,6 +17,7 @@ export const IPC = {
   SET_SETTINGS: 'settings:set',
   SLICER_INFO: 'slicer:info',
   MENU_EVENT: 'menu:event',
+  OPEN_PATH: 'file:open-path',
 } as const
 
 export interface StartJobRequest {
@@ -47,6 +48,8 @@ export interface StlTimeApi {
   cancelJob(jobId: string): Promise<void>
   onJobEvent(listener: (event: JobEvent) => void): () => void
   onMenuEvent(listener: (event: MenuEvent) => void): () => void
+  /** Fired when the OS hands the app a file: Finder, the dock, or argv. */
+  onOpenPath(listener: (path: string) => void): () => void
   getSettings(): Promise<AppSettings>
   setSettings(settings: AppSettings): Promise<AppSettings>
   getSlicerInfo(): Promise<SlicerInfo>

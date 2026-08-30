@@ -26,6 +26,12 @@ const api = {
     return () => ipcRenderer.removeListener(IPC.MENU_EVENT, handler)
   },
 
+  onOpenPath: (listener: (path: string) => void) => {
+    const handler = (_event: unknown, path: string): void => listener(path)
+    ipcRenderer.on(IPC.OPEN_PATH, handler)
+    return () => ipcRenderer.removeListener(IPC.OPEN_PATH, handler)
+  },
+
   getSettings: (): Promise<AppSettings> => ipcRenderer.invoke(IPC.GET_SETTINGS),
   setSettings: (settings: AppSettings): Promise<AppSettings> =>
     ipcRenderer.invoke(IPC.SET_SETTINGS, settings),

@@ -28,6 +28,30 @@ The build is **unsigned**, so macOS will refuse to open it the first time:
 right-click the app and choose **Open**, then confirm. Or
 [build it yourself](#getting-started) — it takes one command.
 
+## In the menu bar
+
+STL Time also lives in the macOS menu bar, so you can get an estimate without
+hunting for the window.
+
+- **Click the icon** to show the window, or tuck it away again.
+- **Right-click** for Open STL…, Settings and Quit.
+- **Closing the window does not quit the app.** It hides, with your model still
+  loaded, and the menu bar icon brings it straight back. Quit with `⌘Q`.
+
+## Opening a file
+
+Any of these work:
+
+|               |                                           |
+| ------------- | ----------------------------------------- |
+| Drag and drop | Anywhere in the window                    |
+| `⌘O`          | Or **Choose a file** in the empty state   |
+| Finder        | Right-click an STL → Open With → STL Time |
+| The Dock      | Drop an STL on the app icon               |
+| Terminal      | `open -a "STL Time" model.stl`            |
+
+Other shortcuts: `⌘,` for settings, `⌘W` to hide the window, `⌘Q` to quit.
+
 ---
 
 ## Requirements
@@ -216,6 +240,8 @@ src/
 ├── main/                    Electron main process — the only place with disk
 │   ├── index.ts             lifecycle, single-instance lock, quit cleanup
 │   ├── window.ts            the one window
+│   ├── actions.ts           show / open / settings, shared by menu and tray
+│   ├── tray.ts              the menu bar icon
 │   ├── menu.ts              ⌘O, ⌘, and ⌘W
 │   ├── ipc.ts               handlers; validates everything from the renderer
 │   ├── settings.ts          PLA price, one JSON file in userData

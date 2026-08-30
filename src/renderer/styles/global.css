@@ -33,7 +33,7 @@ button {
 }
 
 :focus-visible {
-  outline: 2px solid var(--accent);
+  outline: 2px solid var(--accent-bright);
   outline-offset: 2px;
   border-radius: var(--radius-sm);
 }
@@ -52,20 +52,37 @@ button {
   justify-content: space-between;
   flex: 0 0 auto;
   height: 52px;
-  padding: 0 var(--space-4) 0 88px;
+  padding: 0 var(--space-4) 0 84px;
   border-bottom: 1px solid var(--border-subtle);
+}
+
+.titlebar__brand {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.titlebar__mark {
+  width: 15px;
+  height: 17px;
+  opacity: 0.95;
 }
 
 .titlebar__title {
   font-size: var(--text-meta);
   font-weight: 590;
-  letter-spacing: 0.02em;
+  letter-spacing: 0.01em;
 }
 
 .titlebar__printer {
   color: var(--text-tertiary);
   font-size: var(--text-meta);
-  margin-left: var(--space-2);
+}
+
+.titlebar__printer::before {
+  content: '·';
+  margin-right: var(--space-2);
+  color: var(--border-strong);
 }
 
 .icon-button {
@@ -78,7 +95,8 @@ button {
   color: var(--text-tertiary);
   transition:
     background var(--duration-fast) var(--ease-out),
-    color var(--duration-fast) var(--ease-out);
+    color var(--duration-fast) var(--ease-out),
+    transform var(--duration-fast) var(--ease-out);
 }
 
 .icon-button:hover {
@@ -87,7 +105,8 @@ button {
 }
 
 .icon-button:active {
-  background: var(--surface-raised);
+  background: var(--surface-3);
+  transform: scale(0.94);
 }
 
 .content {
@@ -107,6 +126,9 @@ button {
 
 .text-button {
   -webkit-app-region: no-drag;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
   padding: var(--space-1) var(--space-2);
   border-radius: var(--radius-sm);
   color: var(--text-secondary);
@@ -121,11 +143,26 @@ button {
   color: var(--text-primary);
 }
 
+.text-button:active {
+  background: var(--surface-3);
+}
+
+.spin {
+  animation: spin 900ms linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
   *::after {
     animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
   }
 }

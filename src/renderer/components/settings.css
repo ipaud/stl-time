@@ -20,11 +20,24 @@
   box-shadow: 0 12px 32px oklch(0% 0 0 / 0.4);
 }
 
+.settings__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+}
+
 .settings__title {
   margin: 0;
   font-size: 0.9375rem;
   font-weight: 590;
   letter-spacing: -0.01em;
+}
+
+.settings__note {
+  margin: calc(var(--space-2) * -1) 0 0;
+  font-size: var(--text-label);
+  color: var(--text-tertiary);
 }
 
 .settings__field {
@@ -36,6 +49,11 @@
 .settings__label {
   font-size: var(--text-meta);
   color: var(--text-secondary);
+}
+
+.settings__input-wrap:focus-within {
+  border-color: var(--accent-edge);
+  box-shadow: 0 0 0 3px var(--accent-glow);
 }
 
 .settings__input-wrap {
@@ -71,6 +89,21 @@
 }
 
 .settings__save {
-  color: var(--text-primary);
-  background: var(--surface-raised);
+  padding: var(--space-2) var(--space-4);
+  border-radius: var(--radius-sm);
+  font-size: var(--text-meta);
+  font-weight: 560;
+  color: #fff;
+  background: var(--accent);
+  transition:
+    filter var(--duration-fast) var(--ease-out),
+    transform var(--duration-fast) var(--ease-out);
+}
+
+.settings__save:hover {
+  filter: brightness(1.15);
+}
+
+.settings__save:active {
+  transform: scale(0.97);
 }
