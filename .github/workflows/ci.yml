@@ -15,7 +15,7 @@ jobs:
     # macOS runner: this is a macOS app, and the packaging step needs it.
     runs-on: macos-14
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
       - uses: pnpm/action-setup@v4
 
