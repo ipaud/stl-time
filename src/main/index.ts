@@ -21,7 +21,9 @@ let isReady = false
 
 // A single window utility: a second launch focuses the one that is already open
 // rather than starting a rival copy that would wipe the first one's temp files.
-if (!app.requestSingleInstanceLock()) {
+// Packaged builds only — otherwise `pnpm dev` dies on the spot whenever the
+// installed app happens to be running, which is most of the time.
+if (app.isPackaged && !app.requestSingleInstanceLock()) {
   app.quit()
 }
 

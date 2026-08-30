@@ -5,9 +5,11 @@ import { join } from 'node:path'
 import { app } from 'electron'
 import { log } from './log.js'
 
-const ROOT_NAME = 'stl-time'
+// A development run keeps its own root, so starting one never sweeps away the
+// jobs of an installed copy running alongside it.
+const rootName = (): string => (app.isPackaged ? 'stl-time' : 'stl-time-dev')
 
-const root = (): string => join(app.getPath('temp'), ROOT_NAME)
+const root = (): string => join(app.getPath('temp'), rootName())
 
 export async function createJobDir(jobId: string): Promise<string> {
   const dir = join(root(), `job-${jobId}`)
@@ -33,9 +35,9 @@ export function newJobId(): string {
 }
 
 /**
- * Wipes every job directory at startup. No job can be running yet — the single
- * instance lock guarantees this is the only copy of the app — so anything still
- * on disk is debris from a crash or a hard quit.
+ * Wipes every job directory at startup. Nothing else can be using this root —
+ * packaged builds hold a single-instance lock, and development runs get a root
+ * of their own — so anything still on disk is debris from a crash or hard quit.
  */
 export async function cleanupAllJobs(): Promise<void> {
   try {

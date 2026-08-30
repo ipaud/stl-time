@@ -346,7 +346,13 @@ env -u ELECTRON_RUN_AS_NODE pnpm dev
 ```
 
 **Gatekeeper blocks the packaged app.** The build is unsigned. Right-click the
-app and choose Open, or sign it with your own Developer ID.
+app and choose Open, or sign it with your own Developer ID. A build you made
+yourself and copied into `/Applications` is not quarantined and opens normally.
+
+**Two copies at once.** A packaged build holds a single-instance lock, so
+launching it twice just focuses the window you already have. Development runs
+are exempt and keep their own temporary directory, so `pnpm dev` works fine with
+the installed app running.
 
 ---
 

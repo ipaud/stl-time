@@ -29,6 +29,9 @@ All notable changes to this project are documented here. The format follows
 
 - The release `.dmg` is named `stl-time-…` rather than `STL.Time-…`, which is
   what GitHub made of the spaces.
+- `pnpm dev` no longer exits silently when the installed app is running. The
+  single-instance lock is packaged-only now, and a development run keeps its own
+  temporary directory so the two never tread on each other.
 
 ## [0.1.0] — 2026-08-30
 
